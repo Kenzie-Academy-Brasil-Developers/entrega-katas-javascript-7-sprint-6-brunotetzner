@@ -4,14 +4,13 @@ let arrayofNumbers = [1, 4, 5, 6, 4, 7, 11]
 /*-----------------------------forEach-----------------------------------*/
 function writeMyForEach(valor, indice, array) {
     console.log(`O valor é ${valor}, o indice dele é ${indice}, e o array é ${array}`)
-    console.log('------------------------------------------------------------------')
 }
 function newForEach(callback, array) {
     for (let indice = 0; indice < array.length; indice++) {
         callback(array[indice], indice, array)
     }
 }
-//newForEach(writeMyForEach,arrayofNumbers)
+newForEach(writeMyForEach,arrayofNumbers)
 
 
 
@@ -29,7 +28,7 @@ function newMap(callback, array) {
     }
     return newarray
 }
-//console.log(newMap(writeMyMap,arrayofNumbers))
+console.log(newMap(writeMyMap,arrayofNumbers))
 
 //------------------------filter---------------------------------------------//
 function writeMyFilter(number, indice, array) {
@@ -47,7 +46,7 @@ function newFilter(callback, array) {
     }
     return newarray
 }
-//console.log(newFilter(writeMyFilter,arrayofNumbers))
+console.log('FILTER        ',newFilter(writeMyFilter,arrayofNumbers))
 
 //---------------------------FIND--------------------------//
 function writeFind(number) {
@@ -64,7 +63,7 @@ function newFind(callback, array) {
         }
     }
 }
-//console.log(newFind(writeFind,arrayofNumbers))
+console.log('FIND      ',newFind(writeFind,arrayofNumbers))
 
 //----------- FIND-INDEX------------------
 
@@ -86,7 +85,7 @@ function newFindIndex(callback, array) {
         }
     }
 }
-//console.log(newFindIndex(writeFindindex,arrayofNumbers))
+console.log('FINDINDEX     ',newFindIndex(writeFindindex,arrayofNumbers))
 
 /*---------------Reduce--------------------*/
 
@@ -98,7 +97,7 @@ function newReduce(callback, array) {
     }
     return soma
 }
-//console.log(newReduce(reduceA,arrayofNumbers))
+console.log('REDUCE      ',newReduce(reduceA,arrayofNumbers))
 
 
 /*-----------------SOME------------*/
@@ -118,7 +117,7 @@ function newSome(callback, array) {
     return boolean
 }
 
-//console.log(newSome(writeSome,arrayofNumbers))
+console.log('SOME        ',newSome(writeSome,arrayofNumbers))
 
 /*--------------Every-----------------*/
 function writeEvery(item, indice, array) {
@@ -141,7 +140,7 @@ function newEvery(callback, array) {
     return boolean
 
 }
-//console.log(newEvery(writeEvery,arrayofNumbers))
+console.log('EVERY      ',newEvery(writeEvery,arrayofNumbers))
 /*----------------------- FILL -------------*/
 
 const fruits = ["Banana", "Orange", "Apple", "Mango"];
@@ -162,7 +161,7 @@ function NewFill(array, newElement, play, end) {
     return fruits
 }
 
-//console.log(NewFill(fruits,'Kiwi',2,5))
+console.log('FILL        ',NewFill(fruits,'Kiwi',2,5))
 
 /*----------------includes--------------*/
 function newIncludes(item, array) {
@@ -174,7 +173,7 @@ function newIncludes(item, array) {
     }
     return boolean
 }
-//console.log(newIncludes(1,arrayofNumbers))
+console.log('INCLUDES        ',newIncludes(1,arrayofNumbers))
 
 /*--------------indexOf*/
 function newIndexOf(array, item, play, end) {
@@ -195,7 +194,7 @@ function newIndexOf(array, item, play, end) {
     }
     return -1
 }
-//console.log(newIndexOf(arrayofNumbers,1))
+console.log('INDEXOF        ',newIndexOf(arrayofNumbers,1))
 
 /*-------------------concat-----------------*/
 let fruit = ['maça', 'banana', 'pera', 'uva']
@@ -208,7 +207,7 @@ function newConcat(array, arrayConcat) {
     return array
 }
 
-//console.log(newConcat(fruit, WeekDays))
+console.log('CONCAT        ',newConcat(fruit, WeekDays))
 
 /*-----------------------Join--------------------------------------*/
 function newJoin(array, caracter) {
@@ -222,7 +221,7 @@ function newJoin(array, caracter) {
     return string
 }
 
-//console.log(newJoin(arrayofNumbers,'------'))
+console.log('JOIN        ',newJoin(arrayofNumbers,'------'))
 
 /*-----------------------slice------------------------------------*/
 let arrayToSlice = [1,2,3,4,5,6,7,8]
@@ -242,4 +241,4 @@ function newSlice(array, start,end){
     }
     return finalArray
 }
-console.log(newSlice(arrayToSlice,0,70))
+console.log('SLICE        ',newSlice(arrayToSlice,0,70))
