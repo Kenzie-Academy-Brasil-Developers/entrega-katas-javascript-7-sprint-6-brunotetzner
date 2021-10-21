@@ -242,4 +242,4 @@ function newSlice(array, start,end){
     }
     return finalArray
 }
-//console.log(newSlice(arrayToSlice,0,70))
+console.log(newSlice(arrayToSlice,0,70))
