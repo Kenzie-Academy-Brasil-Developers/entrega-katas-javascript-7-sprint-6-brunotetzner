@@ -2,17 +2,17 @@
 let arrayofNumbers = [1, 4, 5, 6, 4, 7, 11]
 
 /*-----------------------------forEach-----------------------------------*/
-function writeMyForEach(valor, indice, array) {
-    console.log(`O valor é ${valor}, o indice dele é ${indice}, e o array é ${array}`)
+function writeMyForEach(valor, indice,array) {
+    return (`O valor é ${valor}, o indice dele é ${indice}, e o array é ${array}`)
 }
-function newForEach(callback, array) {
-    for (let indice = 0; indice < array.length; indice++) {
-        callback(array[indice], indice, array)
+Array.prototype.newForEach = function(callback) {
+    for (let indice = 0; indice < this.length; indice++) {
+        callback(this[indice], indice, this)
     }
 }
-newForEach(writeMyForEach,arrayofNumbers)
+console.log('FOREACH         ',arrayofNumbers.newForEach(writeMyForEach))
 
-
+//retornando undefined
 
 /*--------------------------------map------------------------------------*/
 
@@ -20,15 +20,15 @@ function writeMyMap(valor, indice, array) {
     return `o valor é ${valor}, o indice é ${indice}, e o array é ${array}`
 
 }
-function newMap(callback, array) {
+Array.prototype.newMap = function(callback) {
     let newarray = []
-    for (let indice = 0; indice < array.length; indice++) {
-        const result = callback(array[indice], indice, array)
+    for (let indice = 0; indice < this.length; indice++) {
+        const result = callback(this[indice], indice, this)
         newarray.push(result)
     }
     return newarray
 }
-console.log(newMap(writeMyMap,arrayofNumbers))
+console.log('MAP           ',arrayofNumbers.newMap(writeMyMap))
 
 //------------------------filter---------------------------------------------//
 function writeMyFilter(number, indice, array) {
@@ -36,34 +36,35 @@ function writeMyFilter(number, indice, array) {
         return number
     }
 }
-function newFilter(callback, array) {
+Array.prototype.newFilter = function(callback) {
     let newarray = []
-    for (let indice = 0; indice < array.length; indice++) {
-        const result = writeMyFilter(array[indice])
+    for (let indice = 0; indice < this.length; indice++) {
+        const result = callback(this[indice])
         if (result !== undefined) {
             newarray.push(result)
         }
     }
+    
     return newarray
 }
-console.log('FILTER        ',newFilter(writeMyFilter,arrayofNumbers))
+console.log('FILTER        ',arrayofNumbers.newFilter(writeMyFilter))
 
 //---------------------------FIND--------------------------//
-function writeFind(number) {
-    if (number > 10) {
-        return number
+function writeFind(item, index, array) {
+    if (item > 10) {
+        return `${item}[${index}] do array ${array}`
     }
 }
 
-function newFind(callback, array) {
-    for (let indice = 0; indice < array.length; indice++) {
-        const result = callback(array[indice])
+Array.prototype.newFind = function(callback, array) {
+    for (let indice = 0; indice < this.length; indice++) {
+        const result = callback(this[indice],indice, this)
         if (result !== undefined) {
             return result
         }
     }
 }
-console.log('FIND      ',newFind(writeFind,arrayofNumbers))
+console.log('FIND      ',arrayofNumbers.newFind(writeFind))
 
 //----------- FIND-INDEX------------------
 
@@ -72,32 +73,32 @@ function writeFindindex(number, indice) {
         return indice
     }
 }
-function newFindIndex(callback, array) {
-    for (let indice = 0; indice < array.length; indice++) {
-        const result = callback(array[indice], indice)
+Array.prototype.newFindIndex = function(callback) {
+    for (let indice = 0; indice < this.length; indice++) {
+        const result = callback(this[indice], indice)
         if (result !== undefined) {
             return result
 
         }
-        else if (indice === array.length - 1 && result === undefined) {
+        else if (indice === this.length - 1 && result === undefined) {
             return -1
 
         }
     }
 }
-console.log('FINDINDEX     ',newFindIndex(writeFindindex,arrayofNumbers))
+console.log('FINDINDEX     ',arrayofNumbers.newFindIndex(writeFindindex))
 
 /*---------------Reduce--------------------*/
 
 function reduceA(acumulador, valorAtual) { return acumulador + valorAtual; }
-function newReduce(callback, array) {
+Array.prototype.newReduce = function(callback) {
     let soma = 0
-    for (let indice = 0; indice < array.length; indice++) {
-        soma = callback(soma, array[indice])
+    for (let indice = 0; indice < this.length; indice++) {
+        soma = callback(soma, this[indice])
     }
     return soma
 }
-console.log('REDUCE      ',newReduce(reduceA,arrayofNumbers))
+console.log('REDUCE      ',arrayofNumbers.newReduce(reduceA))
 
 
 /*-----------------SOME------------*/
@@ -107,17 +108,17 @@ function writeSome(item, indice, array) {
     }
     { return false }
 }
-function newSome(callback, array) {
+Array.prototype.newSome = function(callback) {
     let boolean = false
-    for (let indice = 0; indice < array.length; indice++) {
-        if (callback(array[indice], indice, array) === true) {
+    for (let indice = 0; indice < this.length; indice++) {
+        if (callback(this[indice], indice, this) === true) {
             boolean = true
         }
     }
     return boolean
 }
 
-console.log('SOME        ',newSome(writeSome,arrayofNumbers))
+console.log('SOME        ',arrayofNumbers.newSome(writeSome))
 
 /*--------------Every-----------------*/
 function writeEvery(item, indice, array) {
@@ -126,10 +127,10 @@ function writeEvery(item, indice, array) {
     }
     { return false }
 }
-function newEvery(callback, array) {
+Array.prototype.newEvery = function(callback) {
     let boolean
-    for (let indice = 0; indice < array.length; indice++) {
-        if (callback(array[indice], indice, array) === true) {
+    for (let indice = 0; indice < this.length; indice++) {
+        if (callback(this[indice], indice, this) === true) {
             boolean = true
         }
         else {
@@ -140,74 +141,75 @@ function newEvery(callback, array) {
     return boolean
 
 }
-console.log('EVERY      ',newEvery(writeEvery,arrayofNumbers))
+console.log('EVERY      ',arrayofNumbers.newEvery(writeEvery,))
 /*----------------------- FILL -------------*/
 
 const fruits = ["Banana", "Orange", "Apple", "Mango"];
 
-function NewFill(array, newElement, play, end) {
+Array.prototype.NewFill = function(newElement, play, end) {
     if (play === undefined) {
         play = 0;
     }
     if (end === undefined) {
-        end = array.length - 1
+        end = this.length - 1
     }
-    else if (end > array.length - 1) {
-        end = array.length - 1
+    else if (end > this.length - 1) {
+        end = this.length - 1
     }
     for (let indice = play; indice <= end; indice++) {
-        array[indice] = newElement
+        this[indice] = newElement
     }
     return fruits
 }
 
-console.log('FILL        ',NewFill(fruits,'Kiwi',2,5))
+console.log('FILL        ',fruits.NewFill('Kiwi',2,5))
 
 /*----------------includes--------------*/
-function newIncludes(item, array) {
+Array.prototype.newIncludes = function(item) {
     let boolean = false
-    for (let indice = 0; indice < array.length; indice++) {
-        if (array[indice] === item) {
+    for (let indice = 0; indice < this.length; indice++) {
+        if (this[indice] === item) {
             boolean = true
         }
     }
     return boolean
 }
-console.log('INCLUDES        ',newIncludes(1,arrayofNumbers))
+console.log('INCLUDES        ',arrayofNumbers.newIncludes(1,))
 
 /*--------------indexOf*/
-function newIndexOf(array, item, play, end) {
+let arrayToIF = [1,2,3,4,5,6,7,8]
+Array.prototype.newIndexOf = function( item, play, end) {
     if (play === undefined) {
         play = 0
     }
     if (end === undefined) {
-        end = array.length - 1
+        end = this.length - 1
     }
-    else if (end > array.length - 1) {
-        end = array.length - 1;
+    else if (end > this.length - 1) {
+        end = this.length - 1;
     }
 
     for (let indice = play; indice <= end; indice++) {
-        if (array[indice] === item) {
+        if (this[indice] === item) {
             return indice
         }
     }
     return -1
 }
-console.log('INDEXOF        ',newIndexOf(arrayofNumbers,1))
+console.log('INDEXOF        ',arrayToIF.newIndexOf(8))
 
 /*-------------------concat-----------------*/
 let fruit = ['maça', 'banana', 'pera', 'uva']
 let WeekDays = ['segunda', 'terça', 'quarta', 'quinta', 'sexta']
 
-function newConcat(array, arrayConcat) {
+Array.prototype.newConcat = function(arrayConcat) {
     for (let indice = 0; indice < arrayConcat.length; indice++) {
-        array.push(arrayConcat[indice])
+        this.push(arrayConcat[indice])
     }
-    return array
+    return this
 }
 
-console.log('CONCAT        ',newConcat(fruit, WeekDays))
+console.log('CONCAT        ',fruit.newConcat(WeekDays))
 
 /*-----------------------Join--------------------------------------*/
 function newJoin(array, caracter) {
@@ -225,20 +227,20 @@ console.log('JOIN        ',newJoin(arrayofNumbers,'------'))
 
 /*-----------------------slice------------------------------------*/
 let arrayToSlice = [1,2,3,4,5,6,7,8]
-function newSlice(array, start,end){
+Array.prototype.newSlice = function(start,end){
     if(start === undefined){
         start = 0;
     }
     if(end  === undefined){
-        end = array.length
+        end = this.length
     }
-    else if(end > array.length){
-        end = array.length 
+    else if(end > this.length){
+        end = this.length 
     }
     let finalArray = []
     for (let indice = start; indice <end;indice++){
-        finalArray.push(array[indice])
+        finalArray.push(this[indice])
     }
     return finalArray
 }
-console.log('SLICE        ',newSlice(arrayToSlice,0,70))
+console.log('SLICE        ',arrayToSlice.newSlice(3,70))
